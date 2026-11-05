@@ -1,0 +1,26 @@
+*.pyc
+*.log
+node_modules
+coverage/
+historic/logs
+historic/export_deliverables
+historic/cantaloupe/*
+historic/staticfiles
+historic/media/packages
+historic/media/build/
+historic/uploadedfiles/*
+historic/settings_local.py
+webpack-stats.json
+.vscode/
+*.egg-info
+.DS_STORE
+CACHE
+frontend_configuration
+
+# Packaging
+build/
+dist/
+
+# environment variables
+.env
+.env.local

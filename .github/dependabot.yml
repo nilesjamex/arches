@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/historic"
+    schedule:
+      interval: "monthly"
+    labels:
+      - dependencies
+      - javascript
+    versioning-strategy: "increase"
