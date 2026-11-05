@@ -24,3 +24,8 @@ dist/
 # environment variables
 .env
 .env.local
+
+# data
+historic/data/raw
+historic/data/clean_data
+historic/pkg/graphs
