@@ -2,9 +2,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 from django.urls import include, path
+from historic.views.buildings import building_detail, building_list
 
 urlpatterns = [
     # project-level urls
+    path("api/buildings/", building_list, name="building_list"),
+    path("api/buildings/<uuid:building_id>/", building_detail, name="building_detail"),
 ]
 
 handler400 = "arches.app.views.main.custom_400"
