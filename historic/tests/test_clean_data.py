@@ -10,7 +10,13 @@ import unittest
 
 import pandas as pd
 
-from historic.data.clean_data import clean, clean_grade, pick_test_rows, tidy_name, to_wkt
+from historic.data.clean_data import (
+    clean,
+    clean_grade,
+    pick_test_rows,
+    tidy_name,
+    to_wkt,
+)
 
 
 def make_row(**overrides):
@@ -53,7 +59,10 @@ class TidyNameTests(unittest.TestCase):
         self.assertEqual(tidy_name("THE OLD FORGE"), "The Old Forge")
 
     def test_mixed_case_is_kept_but_spacing_is_fixed(self):
-        self.assertEqual(tidy_name("  20 and  20A Whitbourne Springs "), "20 and 20A Whitbourne Springs")
+        self.assertEqual(
+            tidy_name("  20 and  20A Whitbourne Springs "),
+            "20 and 20A Whitbourne Springs",
+        )
 
 
 class ToWktTests(unittest.TestCase):
@@ -95,9 +104,13 @@ class CleanTests(unittest.TestCase):
         self.assert_rejected("bad grade", Grade=None)
 
     def test_bad_date_is_rejected(self):
-        self.assert_rejected("bad date", **{"Date first listed": "31/31/1987 12:00:00 AM"})
+        self.assert_rejected(
+            "bad date", **{"Date first listed": "31/31/1987 12:00:00 AM"}
+        )
         self.assert_rejected("bad date", **{"Date first listed": None})
-        self.assert_rejected("bad date", **{"Date first listed": "1/1/2030 12:00:00 AM"})
+        self.assert_rejected(
+            "bad date", **{"Date first listed": "1/1/2030 12:00:00 AM"}
+        )
 
     def test_bad_coordinates_are_rejected(self):
         self.assert_rejected("bad coordinates", Easting=None)
@@ -114,7 +127,9 @@ class CleanTests(unittest.TestCase):
     def test_duplicate_keeps_first_and_rejects_second(self):
         good, rejects = run_clean(make_row(), make_row())
         self.assertEqual(len(good), 1)
-        self.assertEqual(rejects.iloc[0]["reject_reason"], "duplicate list entry number")
+        self.assertEqual(
+            rejects.iloc[0]["reject_reason"], "duplicate list entry number"
+        )
 
     def test_rejects_keep_the_original_values(self):
         _, rejects = run_clean(make_row(Grade="III"))

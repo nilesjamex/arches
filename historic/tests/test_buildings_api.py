@@ -106,7 +106,9 @@ class GradeFilterTests(BuildingsApiTestCase):
 
 class NameSearchTests(BuildingsApiTestCase):
     def test_matches_part_of_a_name_in_any_case(self):
-        self.assertEqual(self.names(q="CHURCH"), ["Church Hall", "Church of All Saints"])
+        self.assertEqual(
+            self.names(q="CHURCH"), ["Church Hall", "Church of All Saints"]
+        )
 
     def test_combines_with_grade(self):
         self.assertEqual(self.names(q="church", grade="I"), ["Church of All Saints"])
@@ -144,7 +146,9 @@ class PaginationTests(BuildingsApiTestCase):
     def test_invalid_page_returns_400(self):
         for page in ["0", "-1", "abc", "1.5", ""]:
             with self.subTest(page=page):
-                self.assertEqual(self.client.get(LIST_URL, {"page": page}).status_code, 400)
+                self.assertEqual(
+                    self.client.get(LIST_URL, {"page": page}).status_code, 400
+                )
 
     def test_page_past_the_end_is_empty(self):
         for page in ["4", "99999999999999999999999999"]:
@@ -201,7 +205,10 @@ class BuildingDetailTests(BuildingsApiTestCase):
     def test_period_is_returned_as_its_label(self):
         concept = Concept.objects.create(nodetype_id="Concept")
         period = Value.objects.create(
-            concept=concept, valuetype_id="prefLabel", value="Georgian", language_id="en"
+            concept=concept,
+            valuetype_id="prefLabel",
+            value="Georgian",
+            language_id="en",
         )
         add_tile(self.house, api.PERIOD_NODE, str(period.pk))
         self.assertEqual(self.get_detail(self.house.pk).json()["period"], "Georgian")

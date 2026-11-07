@@ -35,7 +35,9 @@ def find_buildings(grade="", query=""):
     buildings = ResourceInstance.objects.filter(graph_id=GRAPH_ID)
     if grade:
         # A tile stores the grade as its option UUID, under the Grade node's ID.
-        grade_tiles = TileModel.objects.filter(**{f"data__{GRADE_NODE}": GRADE_IDS[grade]})
+        grade_tiles = TileModel.objects.filter(
+            **{f"data__{GRADE_NODE}": GRADE_IDS[grade]}
+        )
         buildings = buildings.filter(
             resourceinstanceid__in=grade_tiles.values("resourceinstance_id")
         )
@@ -84,7 +86,7 @@ def format_building(building, tiles):
     list_entry is None for buildings that weren't imported from the National Heritage List.
     """
     values = merge_tiles(tiles)
-    name =(values.get(NAME_NODE) or {}).get("en") or {}
+    name = (values.get(NAME_NODE) or {}).get("en") or {}
     return {
         "id": str(building["resourceinstanceid"]),
         "list_entry": building["legacyid"],
@@ -127,7 +129,9 @@ def building_list(request):
 
     page = parse_page(request.GET.get("page", "1"))
     if page is None:
-        return JsonResponse({"error": "page must be a whole number from 1 upwards"}, status=400)
+        return JsonResponse(
+            {"error": "page must be a whole number from 1 upwards"}, status=400
+        )
 
     buildings = find_buildings(grade, query)
     count = buildings.count()

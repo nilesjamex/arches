@@ -38,7 +38,21 @@ REJECT_COLUMNS = [
     "Northing",
 ]
 
-SMALL_WORDS = {"a", "an", "and", "at", "by", "for", "from", "in", "of", "on", "the", "to", "with"}
+SMALL_WORDS = {
+    "a",
+    "an",
+    "and",
+    "at",
+    "by",
+    "for",
+    "from",
+    "in",
+    "of",
+    "on",
+    "the",
+    "to",
+    "with",
+}
 ROMAN_NUMERALS = {"II", "III", "IV", "VI", "VII", "VIII", "IX", "XI", "XII"}
 
 # Whole words only, keeping apostrophes attached. Tokens with digits (20A, K6) are left alone.
@@ -59,7 +73,11 @@ def read_list(path):
 
 def clean_grade(grades):
     # Remove spaces first, so that ^GRADE still matches a value with a leading space.
-    key = grades.str.upper().str.replace(r"\s+", "", regex=True).str.replace(r"^GRADE", "", regex=True)
+    key = (
+        grades.str.upper()
+        .str.replace(r"\s+", "", regex=True)
+        .str.replace(r"^GRADE", "", regex=True)
+    )
     return key.map(GRADES)  # anything unrecognised becomes NaN
 
 
@@ -108,23 +126,25 @@ def clean(df, today=None):
     easting = pd.to_numeric(df["Easting"], errors="coerce")
     northing = pd.to_numeric(df["Northing"], errors="coerce")
 
-    problems = pd.DataFrame({
-        "missing list entry number": df["ResourceID"].isna() | (df["ResourceID"] == ""),
-        "duplicate list entry number": df["ResourceID"].notna()
-        & df["ResourceID"].duplicated(keep="first"),
-        "missing name": df["Name"].isna() | (df["Name"] == ""),
-        "bad grade": df["Grade"].isna(),
-        "bad coordinates": ~easting.between(*EASTING_RANGE) | ~northing.between(*NORTHING_RANGE),
-        "bad date": df["first_listed"].isna() | (df["first_listed"] > today),
-    })
+    problems = pd.DataFrame(
+        {
+            "missing list entry number": df["ResourceID"].isna()
+            | (df["ResourceID"] == ""),
+            "duplicate list entry number": df["ResourceID"].notna()
+            & df["ResourceID"].duplicated(keep="first"),
+            "missing name": df["Name"].isna() | (df["Name"] == ""),
+            "bad grade": df["Grade"].isna(),
+            "bad coordinates": ~easting.between(*EASTING_RANGE)
+            | ~northing.between(*NORTHING_RANGE),
+            "bad date": df["first_listed"].isna() | (df["first_listed"] > today),
+        }
+    )
     df["reject_reason"] = problems.apply(lambda row: "; ".join(row.index[row]), axis=1)
     bad = df["reject_reason"] != ""
     good = df[~bad].copy()
     rejects = source[bad].assign(reject_reason=df["reject_reason"][bad])
 
-    good["Location"] = [
-        to_wkt(e, n) for e, n in zip(easting[~bad], northing[~bad])
-    ]
+    good["Location"] = [to_wkt(e, n) for e, n in zip(easting[~bad], northing[~bad])]
     # There is no Period in the source data. first_listed is when a building was listed,
     # not when it was built, so it can't be used to work Period out. The node is optional.
     good["Period"] = ""
@@ -166,12 +186,17 @@ def make_seeded(sample):
 
 def pick_test_rows(good):
     """Five rows for a first import, covering every grade: one I, one II*, three II."""
-    picks = [good[good["Grade"] == grade].head(n) for grade, n in [("I", 1), ("II*", 1), ("II", 3)]]
+    picks = [
+        good[good["Grade"] == grade].head(n)
+        for grade, n in [("I", 1), ("II*", 1), ("II", 3)]
+    ]
     return pd.concat(picks).sort_values("ResourceID")
 
 
 def summarise(sample, good, rejects, seeded, seeded_good, seeded_rejects):
-    names_changed = (sample["List Entry Name"] != sample["List Entry Name"].map(tidy_name)).sum()
+    names_changed = (
+        sample["List Entry Name"] != sample["List Entry Name"].map(tidy_name)
+    ).sum()
     amended_before_listed = (good["amended"] < good["first_listed"]).sum()
     lines = [
         "REAL SAMPLE",
@@ -181,7 +206,8 @@ def summarise(sample, good, rejects, seeded, seeded_good, seeded_rejects):
         f"  names tidied: {names_changed}",
         f"  amended before first listed (kept, reported only): {amended_before_listed}",
         "  period filled: 0 (not in the source data)",
-        "  grades: " + ", ".join(f"{g}={n}" for g, n in good["Grade"].value_counts().items()),
+        "  grades: "
+        + ", ".join(f"{g}={n}" for g, n in good["Grade"].value_counts().items()),
         "",
         "SEEDED TEST FILE (errors added on purpose, not real data)",
         f"  rows in:  {len(seeded)}",

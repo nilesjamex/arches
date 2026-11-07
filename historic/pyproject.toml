@@ -34,7 +34,9 @@ dev = [
     "coverage",
     "django-silk==5.1.0",
     "livereload",
+    "pandas>=3.0,<4",
     "pre-commit==3.8.0",
+    "pyproj>=3.7,<4",
     "sst",
 ]
 
