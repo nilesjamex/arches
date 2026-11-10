@@ -2,7 +2,7 @@
 
 /// The design's focus ring: 3px --focus outline with a 2px gap.
 @mixin focus-ring {
-  outline: 3px solid var(--focus);
+  outline: none;
   outline-offset: 2px;
 }
 

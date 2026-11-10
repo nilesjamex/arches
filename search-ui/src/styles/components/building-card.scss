@@ -22,7 +22,14 @@
 
 .card__name {
   @include heading-h3;
-  overflow-wrap: anywhere; // long names wrap; never truncated
+  // overflow-wrap: break-word; // long names wrap; never truncated
+  white-space: normal;
+  height: 52px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .card__link {

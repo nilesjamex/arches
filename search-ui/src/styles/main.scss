@@ -1,5 +1,6 @@
 // Global styles. Component styles live in styles/components and styles/views, and are
 // loaded (scoped) by each component's <style src="…">.
+
 @use 'base/tokens';
 @use 'base/base';
 @use 'base/buttons';

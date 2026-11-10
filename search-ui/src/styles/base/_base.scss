@@ -3,7 +3,13 @@
 *,
 *::before,
 *::after {
+  outline: none;
   box-sizing: border-box;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
 }
 
 html {
@@ -48,6 +54,8 @@ input,
 select {
   font: inherit;
   color: inherit;
+  outline: none;
+  border: none;
 }
 
 // One focus style for everything that can take keyboard focus.
