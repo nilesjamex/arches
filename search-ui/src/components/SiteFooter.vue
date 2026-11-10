@@ -3,8 +3,9 @@
     <div class="site-footer__inner">
       <p class="site-footer__title">Independent project, not affiliated with Historic England.</p>
       <p class="site-footer__body">
-        Building records are a sample of 501 entries from the National Heritage List for England
-        (NHLE). For the official list entry, follow the list entry number on each building.
+        Building records are a sample of 500 entries from the National Heritage List for England
+        (NHLE) and 1 sample entry. For the official list entry, follow the list entry number on each
+        building.
       </p>
     </div>
   </footer>

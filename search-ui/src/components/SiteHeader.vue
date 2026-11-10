@@ -11,13 +11,13 @@ import ThemeToggle from './ThemeToggle.vue'
       <RouterLink to="/" class="wordmark">
         <AppIcon :src="buildingIcon" :size="26" />
         <span class="wordmark__name">Listed Buildings Search</span>
-        <span class="wordmark__note">Independent project</span>
+        <!-- <span class="wordmark__note">Independent project</span> -->
       </RouterLink>
 
       <div class="site-header__actions">
-        <a href="#about" class="site-header__about">
+        <!-- <a href="#about" class="site-header__about">
           <span>About<span class="site-header__about-long"> the data</span></span>
-        </a>
+        </a> -->
         <ThemeToggle />
       </div>
     </div>
