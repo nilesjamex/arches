@@ -1,0 +1,62 @@
+@use '../abstracts' as *;
+
+// Buttons from the design: Primary (filled) and Secondary (outlined). 48px tall.
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 44px;
+  height: 48px;
+  padding-inline: 24px;
+  border-radius: var(--radius-sm);
+  border: 2px solid transparent;
+  @include label-default;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.btn--primary {
+  background: var(--button-bg);
+  border-color: var(--button-bg);
+  color: var(--button-text);
+
+  &:hover {
+    filter: brightness(1.12);
+  }
+}
+
+.btn--secondary {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text);
+
+  &:hover:not(:disabled) {
+    background: var(--surface-sunken);
+  }
+
+  &:disabled {
+    background: var(--bg);
+    border-color: var(--divider);
+    color: var(--button-disabled-text);
+  }
+}
+
+// A <button> that looks like a link, e.g. "Clear search".
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--link);
+  @include label-default;
+  text-decoration: underline;
+  cursor: pointer;
+}

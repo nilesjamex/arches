@@ -1,0 +1,102 @@
+@use '../abstracts' as *;
+
+.search-page {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  @include from('tablet') {
+    gap: 36px;
+  }
+
+  @include from('desktop') {
+    gap: 40px;
+  }
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 720px;
+}
+
+.intro__eyebrow {
+  @include label-eyebrow;
+  color: var(--muted);
+}
+
+.intro__title {
+  @include heading-h1-mobile;
+
+  @include from('tablet') {
+    @include heading-h1;
+  }
+}
+
+.intro__lead {
+  @include body-default;
+
+  @include from('tablet') {
+    @include body-lead;
+  }
+}
+
+// The lead text is shortened on mobile.
+.intro__lead-extra {
+  @include below('tablet') {
+    display: none;
+  }
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @include from('tablet') {
+    gap: 20px;
+  }
+}
+
+// One row while it fits; the summary wraps under the H2 when it is long, and always on mobile.
+.results__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 24px;
+
+  @include below('tablet') {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.results__title {
+  @include heading-h2;
+}
+
+.results__summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 16px;
+  @include body-default;
+}
+
+// 1 column on mobile, 2 on tablet, 3 on desktop. Cards stretch to the row height.
+.results__list {
+  display: grid;
+  gap: 16px;
+
+  @include from('tablet') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  @include from('desktop') {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+}

@@ -1,0 +1,46 @@
+@use 'breakpoints' as *;
+
+/// The design's focus ring: 3px --focus outline with a 2px gap.
+@mixin focus-ring {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/// Hidden on screen, still read by screen readers.
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/// Page content column: 1024px max, 16px gutters on mobile and 32px from tablet up.
+@mixin container {
+  width: 100%;
+  max-width: calc(1024px + 2 * 32px);
+  margin-inline: auto;
+  padding-inline: 16px;
+
+  @include from('tablet') {
+    padding-inline: 32px;
+  }
+}
+
+/// Card surface shared by cards, the search form, alerts and the facts list.
+@mixin surface($radius: var(--radius-md)) {
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: $radius;
+}
+
+/// Turns off motion for people who ask for less of it.
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}

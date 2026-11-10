@@ -1,0 +1,28 @@
+@use '../abstracts' as *;
+
+.grade {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  @include label-badge;
+  white-space: nowrap;
+}
+
+.grade--i {
+  background: var(--grade-i-bg);
+  color: var(--grade-i-text);
+}
+
+.grade--ii-star {
+  background: var(--grade-ii-star-bg);
+  color: var(--grade-ii-star-text);
+}
+
+// Grade II uses an outline instead of a fill.
+.grade--ii {
+  background: var(--grade-ii-bg);
+  color: var(--grade-ii-text);
+  border: 1.5px solid var(--grade-ii-border);
+  padding: 2.5px 8.5px;
+}

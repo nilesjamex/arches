@@ -1,0 +1,63 @@
+@use '../abstracts' as *;
+
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--divider);
+}
+
+.site-header__inner {
+  @include container;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  padding-block: 10px;
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.wordmark__name {
+  @include wordmark;
+}
+
+.wordmark__note {
+  @include caption;
+  color: var(--muted);
+
+  @include below('tablet') {
+    display: none;
+  }
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  @include below('small') {
+    gap: 12px;
+  }
+}
+
+.site-header__about {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  @include label-default;
+  white-space: nowrap;
+}
+
+// "About the data" from tablet up, "About" on mobile.
+.site-header__about-long {
+  @include below('tablet') {
+    display: none;
+  }
+}

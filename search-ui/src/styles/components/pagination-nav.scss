@@ -1,0 +1,24 @@
+@use '../abstracts' as *;
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pager__button {
+  padding-inline: 16px;
+}
+
+.pager__status {
+  @include label-default;
+  text-align: center;
+}
+
+// Arrows are hidden on very narrow screens to give the page indicator room.
+.pager__arrow {
+  @include below('small') {
+    display: none;
+  }
+}

@@ -1,0 +1,63 @@
+@use '../abstracts' as *;
+
+.alert {
+  @include surface;
+  display: flex;
+  overflow: hidden;
+}
+
+.alert__accent {
+  flex-shrink: 0;
+  width: 6px;
+  background: var(--border);
+}
+
+.alert__inner {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 24px 20px 20px;
+}
+
+.alert__icon {
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.alert__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.alert__title {
+  @include heading-h3;
+}
+
+.alert__body {
+  @include body-default;
+}
+
+.alert__action {
+  padding-top: 10px;
+}
+
+.alert--error {
+  background: var(--error-bg);
+  border-color: var(--error);
+
+  .alert__accent {
+    background: var(--error);
+  }
+
+  .alert__icon {
+    color: var(--error);
+  }
+
+  .alert__title {
+    @include label-default;
+  }
+}

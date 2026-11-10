@@ -1,0 +1,23 @@
+@use '../abstracts' as *;
+
+.site-footer {
+  margin-top: auto;
+  background: var(--surface-sunken);
+}
+
+.site-footer__inner {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-block: 32px 40px;
+}
+
+.site-footer__title {
+  @include label-default;
+}
+
+.site-footer__body {
+  @include body-small;
+  color: var(--muted);
+}

@@ -1,0 +1,94 @@
+@use '../abstracts' as *;
+
+.card {
+  @include surface;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  height: 100%;
+  padding: 20px 20px 12px;
+
+  &:hover {
+    border-color: var(--border);
+  }
+
+  // The card shows the ring when its name link has keyboard focus.
+  &:has(.card__link:focus-visible) {
+    @include focus-ring;
+  }
+}
+
+.card__name {
+  @include heading-h3;
+  overflow-wrap: anywhere; // long names wrap; never truncated
+}
+
+.card__link {
+  color: var(--link);
+  text-decoration: none;
+
+  // Makes the whole card clickable.
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.card__link--unnamed {
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+.card__meta {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: auto;
+  border-top: 1px solid var(--divider);
+}
+
+.card__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  @include body-small;
+  color: var(--muted);
+}
+
+.card__row--entry {
+  min-height: 44px;
+}
+
+.card__row--location {
+  min-height: 32px;
+}
+
+// Sits above the stretched name link so it stays its own target (44px tall).
+.card__entry-link {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  @include label-default;
+  color: var(--link);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

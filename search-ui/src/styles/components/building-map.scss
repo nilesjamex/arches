@@ -1,0 +1,40 @@
+@use '../abstracts' as *;
+
+// Same box as the Figma map placeholder: 200px tall, 240px on desktop.
+.building-map {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-md);
+  background: var(--surface-sunken);
+
+  @include from('desktop') {
+    height: 240px;
+  }
+}
+
+.building-map__canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.building-map__placeholder {
+  position: absolute;
+  inset: -1px; // sits exactly over the frame; the placeholder has its own border
+}
+
+// Mapbox creates the marker element itself, so it is styled with :deep.
+// The Figma pin is used as a mask in the theme's focus colour.
+.building-map :deep(.map-marker) {
+  width: 40px;
+  height: 40px;
+  background-color: var(--focus);
+  mask: url('../../assets/icons/map-pin.svg') center / contain no-repeat;
+}
+
+// Keyboard focus on the map canvas gets the same ring as everything else.
+.building-map :deep(.mapboxgl-canvas:focus-visible) {
+  @include focus-ring;
+  outline-offset: -3px;
+}

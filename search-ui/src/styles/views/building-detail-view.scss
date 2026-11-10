@@ -1,0 +1,117 @@
+@use '../abstracts' as *;
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.detail__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  min-height: 44px;
+  @include label-default;
+}
+
+.detail__loading {
+  @include body-default;
+  color: var(--muted);
+}
+
+.detail__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.detail__title {
+  @include heading-h1-mobile;
+  overflow-wrap: anywhere;
+
+  @include from('tablet') {
+    @include heading-h1;
+  }
+}
+
+.detail__title--unnamed {
+  font-style: italic;
+}
+
+// Facts and map stack until there is room for them side by side.
+.detail__body {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  @include from('desktop') {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.facts {
+  @include surface;
+  flex: 1;
+  min-width: 0;
+  padding: 8px 24px;
+}
+
+.facts__row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-block: 14px;
+  border-bottom: 1px solid var(--divider);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  @include from('desktop') {
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  dt {
+    @include label-default;
+    color: var(--muted);
+
+    @include from('desktop') {
+      flex: 0 0 140px;
+    }
+  }
+
+  dd {
+    @include body-default;
+  }
+}
+
+.facts__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  @include label-default;
+}
+
+.detail__aside {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @include from('desktop') {
+    flex: 0 0 400px;
+  }
+}
+
+.detail__official {
+  width: 100%;
+  padding-inline: 20px;
+}
+
+.detail__note {
+  @include caption;
+  color: var(--muted);
+}

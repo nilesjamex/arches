@@ -1,0 +1,27 @@
+@use 'sass:map';
+
+// Breakpoints from the Figma file: Mobile 375, Tablet 768, Desktop 1280.
+// "desktop" switches to 3 columns once the 1024px content width plus gutters fits.
+$breakpoints: (
+  'small': 400px,
+  'tablet': 768px,
+  'desktop': 1088px,
+);
+
+@function bp($name) {
+  @return map.get($breakpoints, $name);
+}
+
+/// Styles for this width and wider.
+@mixin from($name) {
+  @media (min-width: bp($name)) {
+    @content;
+  }
+}
+
+/// Styles for widths below this breakpoint.
+@mixin below($name) {
+  @media (max-width: (bp($name) - 0.02px)) {
+    @content;
+  }
+}

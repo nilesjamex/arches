@@ -1,0 +1,78 @@
+// Colour and radius tokens, taken from the Figma variables (light and dark modes).
+// Components only ever use these custom properties, so the theme switch is just
+// a matter of changing data-theme on <html> (see composables/useTheme.ts).
+
+$light: (
+  bg: #f7f3ea,
+  surface: #ffffff,
+  surface-sunken: #ece5d6,
+  text: #1e1a15,
+  muted: #574e43,
+  border: #857a6b,
+  divider: #d9d0bf,
+  link: #1b4f82,
+  focus: #b4440e,
+  button-bg: #1f4a38,
+  button-text: #ffffff,
+  button-disabled-text: #574e43,
+  error: #a3261b,
+  error-bg: #fbece8,
+  grade-i-bg: #6e1a1a,
+  grade-i-text: #ffffff,
+  grade-ii-star-bg: #7a5200,
+  grade-ii-star-text: #ffffff,
+  grade-ii-bg: #f1ece1,
+  grade-ii-border: #574e43,
+  grade-ii-text: #1e1a15,
+);
+
+$dark: (
+  bg: #14110d,
+  surface: #1e1a15,
+  surface-sunken: #2c2620,
+  text: #f2ece2,
+  muted: #bfb4a3,
+  border: #8c8172,
+  divider: #3a332b,
+  link: #9cc6f2,
+  focus: #ffb870,
+  button-bg: #9fd3b8,
+  button-text: #0f241a,
+  button-disabled-text: #bfb4a3,
+  error: #ff9585,
+  error-bg: #3a1a15,
+  grade-i-bg: #f2b2a6,
+  grade-i-text: #2a0b08,
+  grade-ii-star-bg: #ebc772,
+  grade-ii-star-text: #2a1d00,
+  grade-ii-bg: #2c2620,
+  grade-ii-border: #bfb4a3,
+  grade-ii-text: #f2ece2,
+);
+
+@mixin theme($colors) {
+  @each $name, $value in $colors {
+    --#{$name}: #{$value};
+  }
+}
+
+:root {
+  @include theme($light);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  color-scheme: light;
+}
+
+// Before the app has picked a theme, follow the operating system.
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include theme($dark);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  @include theme($dark);
+  color-scheme: dark;
+}

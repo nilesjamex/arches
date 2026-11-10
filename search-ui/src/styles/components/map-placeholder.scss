@@ -1,0 +1,43 @@
+@use '../abstracts' as *;
+
+// Map placeholder: an 8 × 5 grid of divider lines, one road and a pin.
+.map {
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-md);
+  background-color: var(--surface-sunken);
+  background-image:
+    linear-gradient(to right, var(--divider) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--divider) 1px, transparent 1px);
+  background-size:
+    12.5% 100%,
+    100% 20%;
+  background-position:
+    -1px 0,
+    0 -1px;
+
+  @include from('desktop') {
+    height: 240px;
+  }
+}
+
+.map__road {
+  position: absolute;
+  left: -44px;
+  bottom: -20px;
+  width: 140%;
+  height: 12px;
+  background: var(--surface);
+  transform: rotate(18deg);
+  transform-origin: left center;
+}
+
+.map__pin {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--focus);
+}

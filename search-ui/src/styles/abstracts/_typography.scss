@@ -1,0 +1,55 @@
+// Text styles from the Figma file (Foundations & Components).
+
+$font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+$font-sans:
+  'Source Sans 3',
+  system-ui,
+  -apple-system,
+  'Segoe UI',
+  sans-serif;
+
+@mixin type($family, $size, $line, $weight: 400, $tracking: 0) {
+  font-family: $family;
+  font-size: $size;
+  line-height: $line;
+  font-weight: $weight;
+  letter-spacing: $tracking;
+}
+
+@mixin heading-h1 {
+  @include type($font-serif, 48px, 56px, 600, -0.005em);
+}
+@mixin heading-h1-mobile {
+  @include type($font-serif, 34px, 42px, 600, -0.005em);
+}
+@mixin heading-h2 {
+  @include type($font-serif, 30px, 38px, 600);
+}
+@mixin heading-h3 {
+  @include type($font-serif, 21px, 28px, 600);
+}
+@mixin body-lead {
+  @include type($font-sans, 21px, 32px);
+}
+@mixin body-default {
+  @include type($font-sans, 18px, 28px);
+}
+@mixin body-small {
+  @include type($font-sans, 16px, 24px);
+}
+@mixin caption {
+  @include type($font-sans, 14px, 20px);
+}
+@mixin label-default {
+  @include type($font-sans, 18px, 24px, 600);
+}
+@mixin label-eyebrow {
+  @include type($font-sans, 14px, 20px, 600, 0.08em);
+  text-transform: uppercase;
+}
+@mixin label-badge {
+  @include type($font-sans, 15px, 20px, 700, 0.01em);
+}
+@mixin wordmark {
+  @include type($font-serif, 18px, 24px, 600);
+}
